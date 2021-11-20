@@ -24,9 +24,10 @@ const Button: React.FCX<Props> = ({
         type={type === 'submit' ? 'submit' : 'button'}
         className={`
         py-2 px-4 rounded-md text-sm min-w-24
-        text-gray-500 hover:text-black
+         text-black
         transition duration-300 ease-in-out
         disabled:border-gray-100 disabled:text-gray-500 disabled:cursor-default
+      bg
         ${className}
       `}
         onClick={onClick}
@@ -67,6 +68,33 @@ const Button: React.FCX<Props> = ({
       </button>
     );
   }
+
+  if (variant === 'contained') {
+    return (
+      <button
+        {...props}
+        type={type === 'submit' ? 'submit' : 'button'}
+        className={`
+        py-2 px-4 rounded-md text-sm min-w-24
+        border text-gray-500 hover:text-black border-black
+        transition duration-300 ease-in-out
+        disabled:border-gray-100 disabled:text-gray-500 disabled:cursor-default
+        ${className}
+      `}
+        onClick={onClick}
+        disabled={loading}
+        aria-label={props['aria-label'] || id}
+        title={title || id}
+      >
+        {loading ? (
+          <span>
+            ...
+          </span>
+        ) : children}
+      </button>
+    );
+  }
+
   return (
     <button
       {...props}
