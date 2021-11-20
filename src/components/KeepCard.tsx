@@ -45,6 +45,9 @@ const KeepCard: React.FCX<{
             grid gap-4
         "
        >
+         <div className="text-xs text-gray-400">
+           {keep.label}
+         </div>
          <div
            className={`
            whitespace-pre-wrap
