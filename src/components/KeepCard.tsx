@@ -5,6 +5,7 @@ import Button from './Button';
 import { Keep } from '../data/keep';
 import sleep from '../lib/sleep';
 import { format } from '../lib/date';
+import Link from './Link';
 
 const KeepCard: React.FCX<{
   checked: boolean;
@@ -90,8 +91,9 @@ const KeepCard: React.FCX<{
              </>
            )}
          </div>
-         <div className="text-xs text-gray-400">
+         <div className="text-xs text-gray-400 flex justify-between">
            {`${format(keep.updatedAt, 'MD TIME')}`}
+           <Link href={`/?groupName=${keep.groupName}`}>{keep.groupName}</Link>
          </div>
        </div>
      </Transition>

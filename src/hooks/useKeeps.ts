@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { keepCollectionRef } from '../api/keep';
 import { Keep, KeepStatus } from '../data/keep';
@@ -16,13 +17,30 @@ export const useKeeps = () => {
 
   const [currentStatus, setCurrentStatus] = useState<KeepStatus>('KEEP');
 
+  const router = useRouter();
+  const { groupName: qGroupName } = router.query as { groupName: string };
+
   useEffect(() => {
     if (!session) {
       setBricks(initBricks);
       return () => null;
     }
+
     setLoading(true);
-    const unsubscribe = onSnapshot(query(
+
+    // [TODO] 要リファクタ
+    const unsubscribe = qGroupName?.length > 0 ? onSnapshot(query(
+      keepCollectionRef(session.user.uid),
+      currentStatus === 'ARCHIVED' ? where('status', '==', 'ARCHIVED') : where('status', '==', 'KEEP'),
+      orderBy('createdAt', 'desc'),
+      where('groupName', '==', qGroupName),
+    ), {
+      next: (snapshot) => {
+        const data = snapshot.docs.map((documentSnapshot) => documentSnapshot.data());
+        setBricks(data);
+        setLoading(false);
+      },
+    }) : onSnapshot(query(
       keepCollectionRef(session.user.uid),
       currentStatus === 'ARCHIVED' ? where('status', '==', 'ARCHIVED') : where('status', '==', 'KEEP'),
       orderBy('createdAt', 'desc'),
@@ -34,7 +52,7 @@ export const useKeeps = () => {
       },
     });
     return unsubscribe;
-  }, [session, setBricks, setLoading, currentStatus]);
+  }, [session, setBricks, setLoading, currentStatus, qGroupName]);
 
   return {
     keep,

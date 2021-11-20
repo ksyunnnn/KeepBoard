@@ -1,10 +1,12 @@
 import { RadioGroup } from '@headlessui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { addKeep } from '../api/keep';
 import KeepCard from '../components/KeepCard';
 import Button from '../components/Button';
 import { Keep } from '../data/keep';
 import { useKeeps, usePost, useSession } from '../hooks';
+import Link from '../components/Link';
 
 const KeepView = () => {
   const {
@@ -13,6 +15,15 @@ const KeepView = () => {
 
   const [selected, setSelected] = useState();
   const { session } = useSession();
+
+  const { query } = useRouter();
+  const { groupName: qGroupName } = query as { groupName: string };
+
+  const [groupName, setGroupName] = useState('');
+
+  useEffect(() => {
+    setGroupName(qGroupName || '');
+  }, [qGroupName]);
 
   const { post } = usePost<{
     keep: Keep;
@@ -29,7 +40,23 @@ const KeepView = () => {
 
   return (
     <>
-      <div className={`pt-12 flex gap-4 ${currentStatus === 'ARCHIVED' ? '' : 'justify-end'}`}>
+      <div className={`pt-12 flex gap-4 ${currentStatus === 'ARCHIVED' ? '' : 'justify-between'}`}>
+        <span>
+          {' '}
+          {(groupName && currentStatus === 'KEEP')
+        && (
+        <>
+          <Link href="/">
+            <Button
+              id="ARCHIVED"
+            >
+              ←
+            </Button>
+          </Link>
+          <span className="font-bold text-2xl">{groupName}</span>
+        </>
+        )}
+        </span>
         <Button
           onClick={() => setCurrentStatus((prev) => (prev === 'ARCHIVED' ? 'KEEP' : 'ARCHIVED'))}
           id="ARCHIVED"

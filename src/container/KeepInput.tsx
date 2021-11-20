@@ -27,7 +27,7 @@ const KeepInput = () => {
   const textareaEl = useRef<HTMLTextAreaElement>(null);
   const [value, setValue] = useState(init);
 
-  const [group, setGroup] = useState(init);
+  const [groupName, setGroupName] = useState(init);
 
   useEffect(() => {
     if (textareaEl.current) {
@@ -61,11 +61,14 @@ const KeepInput = () => {
       keep: {
         label,
         value,
+        groupName,
         userId: session.user.uid,
       },
       uid: session.user.uid,
     });
+    setLabel(init);
     setValue(init);
+    setGroupName(init);
   };
 
   const enter = (e: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -144,8 +147,8 @@ const KeepInput = () => {
                 />
                 <input
                   type="text"
-                  value={group}
-                  onChange={(e) => setGroup(e.target.value)}
+                  value={groupName}
+                  onChange={(e) => setGroupName(e.target.value)}
                   placeholder="グループ(etc. 住所)"
                 />
                 <div className="flex justify-end"><Button type="submit" id="Submit">Submit(⌘ + Enter)</Button></div>
