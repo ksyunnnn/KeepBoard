@@ -1,2 +1,2 @@
 export const USERS = 'users';
-export const BRICKS = 'bricks';
+export const KEEP = 'keep';

@@ -2,23 +2,23 @@ import { Transition } from '@headlessui/react';
 import { Fragment, useEffect, useState } from 'react';
 import { ArchiveIcon } from '@heroicons/react/outline';
 import Button from './Button';
-import { Brick } from '../data/brick';
+import { Keep } from '../data/keep';
 import sleep from '../lib/sleep';
 import { format } from '../lib/date';
 import Link from './Link';
 import { PATH } from '../const';
 
-const BrickCard: React.FCX<{
+const KeepCard: React.FCX<{
   checked: boolean;
   active: boolean;
   archive?: () => void;
-  brick: Brick;
+  keep: Keep;
   variant?: 'SHOW' | 'LIST'
  }> = ({
    checked,
    active,
    archive,
-   brick,
+   keep,
    variant = 'LIST',
  }) => {
    const [show, setShow] = useState(false);
@@ -34,7 +34,7 @@ const BrickCard: React.FCX<{
        enterTo="opacity-100  translate-y-0"
        leave="transform duration-400 transition ease-in-out"
        leaveFrom="opacity-100 scale-100 translate-x-0"
-       leaveTo={`opacity-0 scale-95 ${brick.status === 'ARCHIVED' ? '-translate-x-10' : 'translate-x-10'}`}
+       leaveTo={`opacity-0 scale-95 ${keep.status === 'ARCHIVED' ? '-translate-x-10' : 'translate-x-10'}`}
      >
        <div
          className="
@@ -53,15 +53,15 @@ const BrickCard: React.FCX<{
            `}
            style={{ minHeight: 80 }}
          >
-           {brick.text}
+           {keep.text}
          </div>
          <div className="flex justify-between items-end text-xs h-8 text-gray-400">
            <div className="pl-1">
              {variant === 'SHOW' ? (
-               `${format(brick.createdAt, 'TIME')}`
+               `${format(keep.createdAt, 'TIME')}`
              ) : (
-               <Link href={PATH.BRICK(brick)} id={format(brick.createdAt, 'MD TIME')}>
-                 {`${format(brick.createdAt, 'TIME')}`}
+               <Link href={PATH.BRICK(keep)} id={format(keep.createdAt, 'MD TIME')}>
+                 {`${format(keep.createdAt, 'TIME')}`}
                </Link>
              )}
            </div>
@@ -79,7 +79,7 @@ const BrickCard: React.FCX<{
                  id="archives"
                  variant="icon"
                >
-                 {brick.status === 'ARCHIVED' ? '←' : <ArchiveIcon className="h-4 w-4" /> }
+                 {keep.status === 'ARCHIVED' ? '←' : <ArchiveIcon className="h-4 w-4" /> }
                </Button>
              </>
            )}
@@ -89,4 +89,4 @@ const BrickCard: React.FCX<{
    );
  };
 
-export default BrickCard;
+export default KeepCard;

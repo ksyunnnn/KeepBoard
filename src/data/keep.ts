@@ -2,7 +2,7 @@ import { FirestoreDataConverter, Timestamp } from 'firebase/firestore';
 
 export type BrickStatus = 'BRICK' | 'ARCHIVED';
 
-export type Brick = {
+export type Keep = {
   _type?: 'brick';
   id?: string;
   text: string;
@@ -12,8 +12,8 @@ export type Brick = {
   userId: string;
 };
 
-export const BrickConverter: FirestoreDataConverter<Brick> = {
-  toFirestore: (brick: Brick) => {
+export const KeepConverter: FirestoreDataConverter<Keep> = {
+  toFirestore: (brick: Keep) => {
     if (
       brick.text === '' || (brick.text !== '' && brick.text.replace(/\s/g, '').length === 0
       )) throw new Error('required brick.text');
@@ -33,7 +33,7 @@ export const BrickConverter: FirestoreDataConverter<Brick> = {
       ...data,
       createdAt: data.createdAt?.toDate(),
       updatedAt: data.updatedAt?.toDate(),
-    } as Brick;
+    } as Keep;
     return brick;
   },
 };

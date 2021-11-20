@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
-import { bricksCollectionRef } from '../api/bricks';
-import { Brick, BrickStatus } from '../data/brick';
+import { keepCollectionRef } from '../api/keep';
+import { Keep, BrickStatus } from '../data/keep';
 import {
   onSnapshot, orderBy, query, where,
 } from '../lib/firebase';
 import { useLoading } from './useLoading';
 import { useSession } from './useSession';
 
-const initBricks: Brick[] = [];
+const initBricks: Keep[] = [];
 
-export const useBricks = () => {
-  const [bricks, setBricks] = useState<Brick[]>(initBricks);
+export const useKeeps = () => {
+  const [keep, setBricks] = useState<Keep[]>(initBricks);
   const { session } = useSession();
   const { loading, setLoading } = useLoading();
 
@@ -23,7 +23,7 @@ export const useBricks = () => {
     }
     setLoading(true);
     const unsubscribe = onSnapshot(query(
-      bricksCollectionRef(session.user.uid),
+      keepCollectionRef(session.user.uid),
       currentStatus === 'ARCHIVED' ? where('status', '==', 'ARCHIVED') : where('status', '==', 'BRICK'),
       orderBy('createdAt', 'desc'),
     ), {
@@ -37,7 +37,7 @@ export const useBricks = () => {
   }, [session, setBricks, setLoading, currentStatus]);
 
   return {
-    bricks,
+    keep,
     loading,
     currentStatus,
     setCurrentStatus,

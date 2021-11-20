@@ -2,32 +2,27 @@ import {
   FormEvent, KeyboardEvent, useEffect, useMemo, useRef, useState,
 } from 'react';
 import {
-  usePost, useSession, useDialog, useBrickInputRef, useAuth,
+  usePost, useSession, useDialog, useAuth,
 } from '../hooks';
-import { Brick } from '../data/brick';
-import { addBrick } from '../api/bricks';
+import { Keep } from '../data/keep';
+import { addKeep } from '../api/keep';
 import Button from '../components/Button';
 
 const init = '';
 
-const BrickInput = () => {
+const KeepInput = () => {
   const [text, setText] = useState(init);
   const { session } = useSession();
   const { setDialog } = useDialog();
-  const { setBrickInputRef } = useBrickInputRef();
+
   const { post } = usePost<{
-    brick: Brick;
+    keep: Keep;
     uid: string;
-  }>(addBrick);
+  }>(addKeep);
 
   const { signIn } = useAuth();
 
   const textareaEl = useRef<HTMLTextAreaElement>(null);
-
-  useEffect(() => {
-    textareaEl.current?.focus();
-    setBrickInputRef(textareaEl);
-  }, [setBrickInputRef]);
 
   useEffect(() => {
     if (textareaEl.current) {
@@ -56,7 +51,7 @@ const BrickInput = () => {
     }
     if (disabled) return;
     post({
-      brick: { text, userId: session.user.uid },
+      keep: { text, userId: session.user.uid },
       uid: session.user.uid,
     });
     setText(init);
@@ -88,4 +83,4 @@ const BrickInput = () => {
   );
 };
 
-export default BrickInput;
+export default KeepInput;

@@ -1,23 +1,23 @@
 import { RadioGroup } from '@headlessui/react';
 import { useState } from 'react';
-import { addBrick } from '../api/bricks';
-import BrickCard from '../components/Card';
+import { addKeep } from '../api/keep';
+import KeepCard from '../components/KeepCard';
 import Button from '../components/Button';
-import { Brick } from '../data/brick';
-import { useBricks, usePost, useSession } from '../hooks';
+import { Keep } from '../data/keep';
+import { useKeeps, usePost, useSession } from '../hooks';
 
-const BrickView = () => {
+const KeepView = () => {
   const {
-    bricks, loading, currentStatus, setCurrentStatus,
-  } = useBricks();
+    keep, loading, currentStatus, setCurrentStatus,
+  } = useKeeps();
 
   const [selected, setSelected] = useState();
   const { session } = useSession();
 
   const { post } = usePost<{
-    brick: Brick;
+    keep: Keep;
     uid: string;
-  }>(addBrick);
+  }>(addKeep);
 
   if (loading) {
     return (
@@ -40,29 +40,29 @@ const BrickView = () => {
       </div>
       <RadioGroup value={selected} onChange={setSelected}>
         <div className="grid gap-4 py-2">
-          {bricks.length === 0 && <>👻</>}
-          {bricks.map((brick) => (
+          {keep.length === 0 && <>👻</>}
+          {keep.map((k) => (
             <RadioGroup.Option
-              key={brick.id}
-              value={brick}
+              key={k.id}
+              value={k}
             >
               {({ active, checked }) => (
                 <>
                   <RadioGroup.Description
-                    as={BrickCard}
+                    as={KeepCard}
                     active={active}
                     checked={checked}
                     archive={() => {
                       if (!session) return;
                       post({
-                        brick: {
-                          ...brick,
-                          status: brick.status === 'ARCHIVED' ? 'BRICK' : 'ARCHIVED',
+                        keep: {
+                          ...k,
+                          status: k.status === 'ARCHIVED' ? 'BRICK' : 'ARCHIVED',
                         },
                         uid: session.user.uid,
                       });
                     }}
-                    brick={brick}
+                    keep={k}
                   />
                 </>
               )}
@@ -74,4 +74,4 @@ const BrickView = () => {
   );
 };
 
-export default BrickView;
+export default KeepView;
