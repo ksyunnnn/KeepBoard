@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import SignInArea from '../container/SignInArea';
 import Dialog from './Dialog';
 
@@ -9,12 +8,7 @@ const Layout: React.FCX<{
   <>
     <header className="p-4 flex justify-between">
       <span>
-        <Image
-          src="/LogoTypo.svg"
-          objectFit="contain"
-          height="20"
-          width="148"
-        />
+        Keep
       </span>
       <SignInArea />
     </header>

@@ -1,3 +1,12 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+* {
+  box-sizing: border-box;
+  outline-color: rgba(54, 49, 46, 0.54);
+}
+
 html,
 body {
   padding: 0;
@@ -11,6 +20,71 @@ a {
   text-decoration: none;
 }
 
-* {
+input,
+textarea {
+  border: 0;
+  outline: 0;
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: #ebecf0;
+
+  width: 100%;
+
   box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+input:focus,
+textarea:focus {
+  box-shadow: inset 1px 1px 2px #cad0ca, inset -1px -1px 2px #fff;
+}
+
+@layer base {
+  body {
+    @apply text-black;
+    @apply bg-gray-100;
+  }
+}
+
+@layer utilities {
+  .half-circle-spinner, .half-circle-spinner * {
+    box-sizing: border-box;
+  }
+  .half-circle-spinner {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    position: relative;
+  }
+  .half-circle-spinner .circle {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    border: 2px solid transparent;
+  }
+  .half-circle-spinner .circle.circle-1 {
+    border-top-color: rgba(54, 49, 46, 0.54);
+  }
+  .half-circle-spinner .circle.circle-1.active {
+    animation: half-circle-spinner-animation 1s infinite;
+  }
+  .half-circle-spinner .circle.circle-2 {
+    border-bottom-color: rgba(54, 49, 46, 0.54);
+  }
+  .half-circle-spinner .circle.circle-2.active {
+    animation: half-circle-spinner-animation 1s infinite alternate;
+  }
+  @keyframes half-circle-spinner-animation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
 }
