@@ -6,8 +6,10 @@ import KeepView from '../container/KeepView';
 const Home: NextPage = () => (
   <Layout>
 
-    <KeepView />
     <KeepInput />
+
+    <KeepView />
+
   </Layout>
 );
 

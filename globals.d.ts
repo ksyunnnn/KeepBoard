@@ -4,6 +4,7 @@ declare namespace NodeJS {
 
       /** サイト名 */
       readonly NEXT_PUBLIC_SITE_NAME: string;
+      readonly NEXT_PUBLIC_SITE_DESC: string;
 
       readonly NEXT_PUBLIC_ENV: 'LOCAL' | 'PREVIEW' | 'PRODUCTION';
 
