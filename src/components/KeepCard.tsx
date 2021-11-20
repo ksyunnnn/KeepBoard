@@ -14,12 +14,14 @@ const KeepCard: React.FCX<{
   archive?: () => void;
   keep: Keep;
   variant?: 'SHOW' | 'LIST'
+  clipBoard: ()=> void;
  }> = ({
    checked,
    active,
    archive,
    keep,
    variant = 'LIST',
+   clipBoard,
  }) => {
    const [show, setShow] = useState(false);
    useEffect(() => {
@@ -57,12 +59,15 @@ const KeepCard: React.FCX<{
          </div>
          <div className="flex justify-between items-end text-xs h-8 text-gray-400">
            <div className="pl-1">
-             {variant === 'SHOW' ? (
-               `${format(keep.createdAt, 'TIME')}`
-             ) : (
-               <Link href={PATH.BRICK(keep)} id={format(keep.createdAt, 'MD TIME')}>
-                 {`${format(keep.createdAt, 'TIME')}`}
-               </Link>
+             {((checked || active) && variant === 'LIST') && (
+             <>
+               <Button
+                 onClick={clipBoard}
+                 id="クリップボードにコピー"
+               >
+                 クリップボードにコピー
+               </Button>
+             </>
              )}
            </div>
            {((checked || active) && variant === 'LIST') && (

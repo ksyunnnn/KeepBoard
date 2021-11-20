@@ -63,6 +63,15 @@ const KeepView = () => {
                       });
                     }}
                     keep={k}
+                    clipBoard={() => {
+                      const textarea = document.createElement('textarea');
+                      textarea.value = k.value;
+                      document.body.appendChild(textarea);
+                      textarea.select();
+
+                      document.execCommand('copy');
+                      textarea.parentElement?.removeChild(textarea);
+                    }}
                   />
                 </>
               )}
