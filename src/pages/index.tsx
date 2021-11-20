@@ -5,11 +5,8 @@ import KeepView from '../container/KeepView';
 
 const Home: NextPage = () => (
   <Layout>
-
     <KeepInput />
-
     <KeepView />
-
   </Layout>
 );
 
