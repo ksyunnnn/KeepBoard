@@ -1,3 +1,27 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next",
+    "next/core-web-vitals", 
+    "airbnb", 
+    "airbnb/hooks", 
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "react/jsx-filename-extension": [ // tsxファイルでJSXを使うため
+      "error",
+      { "extensions": [".jsx", ".tsx"] }
+    ],
+    "react/react-in-jsx-scope": 0, // Reactの宣言もういらんやろ
+    "import/extensions": [ // tsxファイルでJSXを使うため
+      "error",
+      { "extensions": [".jsx", ".tsx"] }
+    ],
+    
+    "react/jsx-props-no-spreading": 0, // propsをスプレッドで許可したいため
+    "@typescript-eslint/explicit-module-boundary-types": 0, // return typesは指定せずに型推論でいけそうな気がするため
+    "import/prefer-default-export": 0, // export defaultなし
+    "import/named": 0, // export * from "./"するため？
+    "no-use-before-define": 0, // Reactのimportで怒られる。謎。
+    "react/prop-types": 0 // なんでやねん
+  }
 }
