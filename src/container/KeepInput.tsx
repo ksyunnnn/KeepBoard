@@ -11,7 +11,6 @@ import Button from '../components/Button';
 const init = '';
 
 const KeepInput = () => {
-  const [value, setValue] = useState(init);
   const { session } = useSession();
   const { setDialog } = useDialog();
 
@@ -22,7 +21,10 @@ const KeepInput = () => {
 
   const { signIn } = useAuth();
 
+  const [label, setLabel] = useState(init);
+
   const textareaEl = useRef<HTMLTextAreaElement>(null);
+  const [value, setValue] = useState(init);
 
   useEffect(() => {
     if (textareaEl.current) {
@@ -51,7 +53,11 @@ const KeepInput = () => {
     }
     if (disabled) return;
     post({
-      keep: { value, userId: session.user.uid },
+      keep: {
+        label,
+        value,
+        userId: session.user.uid,
+      },
       uid: session.user.uid,
     });
     setValue(init);
@@ -69,10 +75,16 @@ const KeepInput = () => {
       onSubmit={submit}
       className="grid gap-2"
     >
-      <input type="text" />
+      <input
+        type="text"
+        value={label}
+        onChange={(e) => setLabel(e.target.value)}
+        placeholder="ラベル"
+      />
       <textarea
         value={value}
         onChange={(e) => setValue(e.target.value)}
+        placeholder="テキストを入力"
         required
         className="p-4 rounded-md"
         style={{ resize: 'none' }}

@@ -20,10 +20,12 @@ export const KeepConverter: FirestoreDataConverter<Keep> = {
   toFirestore: (keep: Keep) => {
     if (
       keep.value === '' || (keep.value !== '' && keep.value.replace(/\s/g, '').length === 0
-      )) throw new Error('required keep.text');
+      )) throw new Error('required keep.value');
     return {
       _type: 'keep',
-      text: keep.value,
+      groupName: keep.groupName || '',
+      label: keep.label || '',
+      value: keep.value || '',
       status: keep.status || 'KEEP',
       createdAt: Timestamp.fromDate(keep.createdAt ? keep.createdAt : new Date()),
       updatedAt: Timestamp.fromDate(new Date()),

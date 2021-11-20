@@ -11,8 +11,8 @@ export const keepCollectionRef = (uid: string) => collection(
   `/${COLLECTION.USERS}/${uid}/${COLLECTION.KEEP}`,
 ).withConverter(KeepConverter);
 
-export const bricksDocumentRef = (uid: string, brickId: string) => doc(db,
-  `/${COLLECTION.USERS}/${uid}/${COLLECTION.KEEP}/${brickId}`).withConverter(KeepConverter);
+export const keepDocumentRef = (uid: string, keepId: string) => doc(db,
+  `/${COLLECTION.USERS}/${uid}/${COLLECTION.KEEP}/${keepId}`).withConverter(KeepConverter);
 
 export const addKeep = async ({ keep, uid }: {keep: Keep, uid: string}) => {
   if (keep.id) {
