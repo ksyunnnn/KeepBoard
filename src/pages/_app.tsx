@@ -27,6 +27,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         <title>{process.env.NEXT_PUBLIC_SITE_NAME}</title>
         <meta name="description" content={process.env.NEXT_PUBLIC_SITE_DESC} />
         <link rel="icon" href="/favicon.ico" />
+        <meta property="og:image" content="https://keepboard.vercel.app/OGP.png" />
       </Head>
       <Component {...pageProps} />
     </RecoilRoot>
