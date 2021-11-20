@@ -53,7 +53,7 @@ const KeepCard: React.FCX<{
            `}
            style={{ minHeight: 80 }}
          >
-           {keep.text}
+           {keep.value}
          </div>
          <div className="flex justify-between items-end text-xs h-8 text-gray-400">
            <div className="pl-1">

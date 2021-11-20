@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { keepCollectionRef } from '../api/keep';
-import { Keep, BrickStatus } from '../data/keep';
+import { Keep, KeepStatus } from '../data/keep';
 import {
   onSnapshot, orderBy, query, where,
 } from '../lib/firebase';
@@ -14,7 +14,7 @@ export const useKeeps = () => {
   const { session } = useSession();
   const { loading, setLoading } = useLoading();
 
-  const [currentStatus, setCurrentStatus] = useState<BrickStatus>('BRICK');
+  const [currentStatus, setCurrentStatus] = useState<KeepStatus>('KEEP');
 
   useEffect(() => {
     if (!session) {
@@ -24,7 +24,7 @@ export const useKeeps = () => {
     setLoading(true);
     const unsubscribe = onSnapshot(query(
       keepCollectionRef(session.user.uid),
-      currentStatus === 'ARCHIVED' ? where('status', '==', 'ARCHIVED') : where('status', '==', 'BRICK'),
+      currentStatus === 'ARCHIVED' ? where('status', '==', 'ARCHIVED') : where('status', '==', 'KEEP'),
       orderBy('createdAt', 'desc'),
     ), {
       next: (snapshot) => {

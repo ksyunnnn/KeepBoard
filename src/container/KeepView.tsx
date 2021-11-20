@@ -31,7 +31,7 @@ const KeepView = () => {
     <>
       <div className={`pt-12 flex gap-4 ${currentStatus === 'ARCHIVED' ? '' : 'justify-end'}`}>
         <Button
-          onClick={() => setCurrentStatus((prev) => (prev === 'ARCHIVED' ? 'BRICK' : 'ARCHIVED'))}
+          onClick={() => setCurrentStatus((prev) => (prev === 'ARCHIVED' ? 'KEEP' : 'ARCHIVED'))}
           id="ARCHIVED"
         >
           {currentStatus === 'ARCHIVED' ? '←' : 'ARCHIVED' }
@@ -57,7 +57,7 @@ const KeepView = () => {
                       post({
                         keep: {
                           ...k,
-                          status: k.status === 'ARCHIVED' ? 'BRICK' : 'ARCHIVED',
+                          status: k.status === 'ARCHIVED' ? 'KEEP' : 'ARCHIVED',
                         },
                         uid: session.user.uid,
                       });
