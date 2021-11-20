@@ -1,29 +1,33 @@
 import { FirestoreDataConverter, Timestamp } from 'firebase/firestore';
 
-export type BrickStatus = 'BRICK' | 'ARCHIVED';
+export type KeepStatus = 'KEEP' | 'ARCHIVED';
 
 export type Keep = {
-  _type?: 'brick';
+  _type?: 'keep';
   id?: string;
-  text: string;
-  status?: BrickStatus
+  status?: KeepStatus
   createdAt?: Date;
   updatedAt?: Date;
   userId: string;
+
+  // [メモ]編集可能
+  groupName?: string; // グルーピング用・重複した名前が入ってくる想定
+  label?: string;
+  value: string;
 };
 
 export const KeepConverter: FirestoreDataConverter<Keep> = {
-  toFirestore: (brick: Keep) => {
+  toFirestore: (keep: Keep) => {
     if (
-      brick.text === '' || (brick.text !== '' && brick.text.replace(/\s/g, '').length === 0
-      )) throw new Error('required brick.text');
+      keep.value === '' || (keep.value !== '' && keep.value.replace(/\s/g, '').length === 0
+      )) throw new Error('required keep.text');
     return {
-      _type: 'brick',
-      text: brick.text,
-      status: brick.status || 'BRICK',
-      createdAt: Timestamp.fromDate(brick.createdAt ? brick.createdAt : new Date()),
+      _type: 'keep',
+      text: keep.value,
+      status: keep.status || 'KEEP',
+      createdAt: Timestamp.fromDate(keep.createdAt ? keep.createdAt : new Date()),
       updatedAt: Timestamp.fromDate(new Date()),
-      userId: brick.userId,
+      userId: keep.userId,
     };
   },
   fromFirestore: (snapshot) => {

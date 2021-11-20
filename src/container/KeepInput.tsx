@@ -11,7 +11,7 @@ import Button from '../components/Button';
 const init = '';
 
 const KeepInput = () => {
-  const [text, setText] = useState(init);
+  const [value, setValue] = useState(init);
   const { session } = useSession();
   const { setDialog } = useDialog();
 
@@ -30,10 +30,10 @@ const KeepInput = () => {
       const { scrollHeight } = textareaEl.current;
       textareaEl.current.style.height = `${scrollHeight}px`;
     }
-  }, [text]);
+  }, [value]);
 
-  const disabled = useMemo(() => text === '' || (text !== ''
-  && text.replace(/\s/g, '').length === 0), [text]);
+  const disabled = useMemo(() => value === '' || (value !== ''
+  && value.replace(/\s/g, '').length === 0), [value]);
 
   const submit = (e: FormEvent<HTMLFormElement> | KeyboardEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
@@ -51,10 +51,10 @@ const KeepInput = () => {
     }
     if (disabled) return;
     post({
-      keep: { text, userId: session.user.uid },
+      keep: { value, userId: session.user.uid },
       uid: session.user.uid,
     });
-    setText(init);
+    setValue(init);
   };
 
   const enter = (e: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -70,8 +70,8 @@ const KeepInput = () => {
       className="grid gap-2"
     >
       <textarea
-        value={text}
-        onChange={(e) => setText(e.target.value)}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
         required
         className="p-4 rounded-md"
         style={{ resize: 'none' }}
