@@ -69,6 +69,7 @@ const KeepInput = () => {
       onSubmit={submit}
       className="grid gap-2"
     >
+      <input type="text" />
       <textarea
         value={value}
         onChange={(e) => setValue(e.target.value)}
