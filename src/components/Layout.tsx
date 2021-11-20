@@ -8,7 +8,7 @@ const Layout: React.FCX<{
   <>
     <header className="p-4 flex justify-between">
       <span>
-        Keep Board | Google Keepのコピペ特化サービス
+        Keep Board | Google Keepのコピペ特化したサービス
       </span>
       <SignInArea />
     </header>
