@@ -5,8 +5,6 @@ import Button from './Button';
 import { Keep } from '../data/keep';
 import sleep from '../lib/sleep';
 import { format } from '../lib/date';
-import Link from './Link';
-import { PATH } from '../const';
 
 const KeepCard: React.FCX<{
   checked: boolean;
@@ -88,6 +86,9 @@ const KeepCard: React.FCX<{
                </Button>
              </>
            )}
+         </div>
+         <div className="text-xs text-gray-400">
+           {`${format(keep.updatedAt, 'MD TIME')}`}
          </div>
        </div>
      </Transition>

@@ -6,6 +6,6 @@ export const format = (
 ) => {
   if (!date) return '';
   if (variant === 'TIME') return fmt(date, 'h:mm aa');
-  if (variant === 'MD TIME') return fmt(date, 'MM月dd日 h:mm aa');
+  if (variant === 'MD TIME') return fmt(date, 'MM/dd h:mm aa');
   return fmt(date, 'yyyy年MM月dd日');
 };

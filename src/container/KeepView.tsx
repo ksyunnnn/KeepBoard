@@ -39,7 +39,7 @@ const KeepView = () => {
         {currentStatus === 'ARCHIVED' && <span className="font-bold text-2xl">ARCHIVED</span>}
       </div>
       <RadioGroup value={selected} onChange={setSelected}>
-        <div className="grid gap-4 py-2">
+        <div className="grid gap-4 py-2 grid-cols-2">
           {keep.length === 0 && <>👻</>}
           {keep.map((k) => (
             <RadioGroup.Option
