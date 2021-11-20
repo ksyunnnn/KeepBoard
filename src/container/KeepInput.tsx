@@ -115,7 +115,7 @@ const KeepInput = () => {
             leaveTo="opacity-0 translate-y-1"
             className="
             fixed z-10 left-0 top-0
-            w-screen
+            md:w-screen
             h-screen
             flex justify-center items-center
             bg-gray-50 bg-opacity-80
@@ -126,7 +126,7 @@ const KeepInput = () => {
                 onSubmit={submit}
                 className="
               grid gap-2 p-4
-              bg-white rounded-md shadow-lg md:w-96 w-sm-full
+              bg-white rounded-md shadow-lg md:w-96 w-screen
               "
               >
                 <input
