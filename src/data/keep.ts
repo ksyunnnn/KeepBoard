@@ -34,12 +34,12 @@ export const KeepConverter: FirestoreDataConverter<Keep> = {
   },
   fromFirestore: (snapshot) => {
     const data = snapshot.data();
-    const brick = {
+    const keep = {
       id: snapshot.id,
       ...data,
       createdAt: data.createdAt?.toDate(),
       updatedAt: data.updatedAt?.toDate(),
     } as Keep;
-    return brick;
+    return keep;
   },
 };

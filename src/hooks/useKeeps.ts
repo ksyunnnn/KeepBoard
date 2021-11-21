@@ -8,10 +8,10 @@ import {
 import { useLoading } from './useLoading';
 import { useSession } from './useSession';
 
-const initBricks: Keep[] = [];
+const initKeep: Keep[] = [];
 
 export const useKeeps = () => {
-  const [keep, setBricks] = useState<Keep[]>(initBricks);
+  const [keep, setKeep] = useState<Keep[]>(initKeep);
   const { session } = useSession();
   const { loading, setLoading } = useLoading();
 
@@ -22,7 +22,7 @@ export const useKeeps = () => {
 
   useEffect(() => {
     if (!session) {
-      setBricks(initBricks);
+      setKeep(initKeep);
       return () => null;
     }
 
@@ -37,7 +37,7 @@ export const useKeeps = () => {
     ), {
       next: (snapshot) => {
         const data = snapshot.docs.map((documentSnapshot) => documentSnapshot.data());
-        setBricks(data);
+        setKeep(data);
         setLoading(false);
       },
     }) : onSnapshot(query(
@@ -47,12 +47,12 @@ export const useKeeps = () => {
     ), {
       next: (snapshot) => {
         const data = snapshot.docs.map((documentSnapshot) => documentSnapshot.data());
-        setBricks(data);
+        setKeep(data);
         setLoading(false);
       },
     });
     return unsubscribe;
-  }, [session, setBricks, setLoading, currentStatus, qGroupName]);
+  }, [session, setKeep, setLoading, currentStatus, qGroupName]);
 
   return {
     keep,
