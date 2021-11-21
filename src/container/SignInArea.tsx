@@ -19,7 +19,7 @@ const SignInArea = () => {
 
   if (!session) {
     return (
-      <div className="grid items-center">
+      <div className="inline-grid items-center">
         <Button
           onClick={() => signIn()}
           id="Sign in"
@@ -31,7 +31,7 @@ const SignInArea = () => {
   }
 
   return (
-    <div className="grid items-center gap-4 grid-flow-col">
+    <div className="inline-grid items-center gap-4 grid-flow-col">
       <Popover className="relative">
         <Popover.Button
           style={{ height: 40 }}

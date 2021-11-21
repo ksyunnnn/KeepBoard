@@ -8,7 +8,15 @@ const Link: React.FCX<Props> = ({
   children, className, id, ...props
 }) => (
   <NextLink {...props}>
-    <a {...props} title={id} aria-label={id} className={`underline ${className}`}>{children}</a>
+    <a
+      {...props}
+      title={id}
+      aria-label={id}
+      className={`underline ${className}`}
+    >
+      {children}
+
+    </a>
   </NextLink>
 );
 
